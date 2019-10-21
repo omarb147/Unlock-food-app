@@ -1,0 +1,13 @@
+.menu_item:hover .delete_icon {
+  display: inline;
+}
+
+.delete_icon {
+  display: none;
+}
+
+.menu_item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
