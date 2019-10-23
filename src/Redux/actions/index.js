@@ -1,5 +1,6 @@
 import * as TYPES from "../../Constants/types";
 
+// Location form actions
 export const selectLocation = (data, error = null) => {
   return { type: TYPES.SELECT_LOCATION, data, error };
 };
@@ -12,6 +13,7 @@ export const clearLocation = () => {
   return { type: TYPES.CLEAR_LOCATION };
 };
 
+//Search actions
 export const placesSearchLoading = () => {
   return { type: TYPES.PLACES_SEARCH_LOADING };
 };
@@ -24,7 +26,7 @@ export const placesSearchError = error => {
   return { type: TYPES.PLACES_SEARCH_ERROR };
 };
 
-//FORM FUNCTIONS FOR USER
+//User form actions
 export const addFormUser = uid => {
   return { type: TYPES.ADD_FORM_USER, uid };
 };
@@ -36,10 +38,28 @@ export const editNameForUser = (uid, name) => {
   return { type: TYPES.EDIT_NAME_FOR_USER, uid, name };
 };
 
+export const removeFormUser = uid => {
+  return { type: TYPES.REMOVE_FORM_USER, uid };
+};
+
 export const submitForm = () => {
   return { type: TYPES.SUBMIT_FORM };
 };
 
 export const selectUser = uid => {
   return { type: TYPES.SELECT_USER, uid };
+};
+
+export const toggleOpenNow = () => {
+  return { type: TYPES.TOGGLE_OPEN_NOW };
+};
+
+export const updateUserFormCompletionStatus = uid => {
+  return { type: TYPES.UPDATE_USER_FORM_COMPLETION_STATUS, uid };
+};
+
+//UI STATE
+
+export const toggleErrorBox = () => {
+  return { type: TYPES.TOGGLE_ERROR_BOX };
 };

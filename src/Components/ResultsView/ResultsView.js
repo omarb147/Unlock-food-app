@@ -14,7 +14,6 @@ export class ResultsView extends Component {
     const { places } = this.props;
     const { loading, data, error } = places;
 
-    console.log(data);
     const showList = data.length > 0 || loading;
     return (
       <div>

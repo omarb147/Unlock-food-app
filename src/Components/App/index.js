@@ -5,6 +5,7 @@ import "antd/dist/antd.css";
 import AppLayout from "../Layout";
 import MainHeader from "../MainHeader";
 import ResultsView from "../ResultsView";
+import SearchErrors from "../SearchErrors";
 import { withRedux } from "../../Redux";
 
 const App = ({ selectedUser }) => {
@@ -12,7 +13,7 @@ const App = ({ selectedUser }) => {
     <AppLayout>
       <MainHeader />
       <div style={{ background: "#fff", padding: 24, minHeight: 280 }}>
-        <LocationSearch />
+        <SearchErrors />
         <SearchForm uid={selectedUser} />
         <ResultsView />
       </div>

@@ -16,12 +16,15 @@ const withRedux = Component => {
 
 const mapStateToProps = state => {
   return {
-    formCompletionError: state.search.formCompletionError,
+    locationFormCompletionStatus: state.search.formCompletionStatus,
     location: state.search.location,
     places: state.search.places,
-    users: state.userData.users,
+    // users: state.userData.users,
     userFormData: state.userData.data,
-    selectedUser: state.userData.selectedUser
+    userFormCompletionStatus: state.userData.formCompletionStatus,
+    selectedUser: state.userData.selectedUser,
+    openNow: state.userData.openNow,
+    showErrorAlert: state.UIState.showErrorAlert
   };
 };
 
@@ -36,7 +39,11 @@ const mapDispatchToProps = dispatch => {
     addFormUser: uid => dispatch(ACTIONS.addFormUser(uid)),
     editFormForUser: (uid, data) => dispatch(ACTIONS.editFormForUser(uid, data)),
     editNameForUser: (uid, name) => dispatch(ACTIONS.editNameForUser(uid, name)),
-    selectUser: uid => dispatch(ACTIONS.selectUser(uid))
+    selectUser: uid => dispatch(ACTIONS.selectUser(uid)),
+    toggleOpenNow: () => dispatch(ACTIONS.toggleOpenNow()),
+    removeFormUser: uid => dispatch(ACTIONS.removeFormUser(uid)),
+    updateUserFormCompletionStatus: uid => dispatch(ACTIONS.updateUserFormCompletionStatus(uid)),
+    toggleErrorBox: () => dispatch(ACTIONS.toggleErrorBox())
   };
 };
 

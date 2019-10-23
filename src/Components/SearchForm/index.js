@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { Form, Input, Icon, InputNumber, Rate, Button, Checkbox } from "antd";
 import { compose } from "recompose";
 import { withRedux } from "../../Redux";
-import withSearch from "./withSearch";
 
 class SearchFormBase extends Component {
   // handleSubmit = e => {
@@ -20,11 +19,12 @@ class SearchFormBase extends Component {
   // };
 
   handleChange = e => {
-    const { form, uid, userFormData, editFormForUser } = this.props;
+    const { form, uid, userFormData, editFormForUser, updateUserFormCompletionStatus } = this.props;
     const currUser = userFormData[uid];
 
     form.validateFields((err, values) => {
       editFormForUser(uid, values);
+      updateUserFormCompletionStatus(uid);
     });
   };
 
@@ -32,8 +32,6 @@ class SearchFormBase extends Component {
     const { places, uid, userFormData } = this.props;
     const currUser = userFormData[uid];
     const { getFieldDecorator } = this.props.form;
-    console.log(currUser);
-
     // const keywordError = isFieldTouched("keyword") || getFieldError("keyword") ? true : false;
 
     return (
@@ -48,7 +46,7 @@ class SearchFormBase extends Component {
           {getFieldDecorator("radius", { initialValue: 1 })(<InputNumber min={1} max={10} suffix="Miles" step={0.2} />)}
           Miles
         </Form.Item>
-        <Form.Item label="Rating">
+        <Form.Item label="Max Price Level">
           {getFieldDecorator("maxPrice", { initialValue: 2.5 })(<Rate character="£" allowClear={true} allowHalf />)}
         </Form.Item>
 

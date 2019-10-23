@@ -39,7 +39,6 @@ const withSearch = Component => {
       }, 300);
     };
     render() {
-      console.log(this.state);
       return <Component {...this.props} searchAPI={this.searchAPI} />;
     }
   }

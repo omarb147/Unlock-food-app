@@ -9,21 +9,23 @@ const { Sider } = Layout;
 export class Siderbar extends Component {
   onSelectHandler = ({ key }) => {
     const { selectUser } = this.props;
-    console.log(key);
     selectUser(key);
   };
 
-  onDeleteHandler = key => {
+  onDeleteHandler = (e, key) => {
+    e.stopPropagation();
+    const { removeFormUser } = this.props;
     if (key != 1) {
-      //Delete user
-      //select another user
+      removeFormUser(key);
     }
   };
 
   onAddUserHandler = () => {
-    const { users, addFormUser } = this.props;
-    if (users.length <= 6) {
-      addFormUser(uniqid("user"));
+    const { userFormData, addFormUser, updateUserFormCompletionStatus } = this.props;
+    if (Object.keys(userFormData).length < 6) {
+      const uid = uniqid("user");
+      addFormUser(uid);
+      updateUserFormCompletionStatus(uid);
     } else {
       //raise error - too many users
     }
@@ -31,7 +33,6 @@ export class Siderbar extends Component {
 
   render() {
     const { userFormData, selectedUser } = this.props;
-    console.log(userFormData);
     return (
       <Sider>
         <div className="logo" />
@@ -44,7 +45,7 @@ export class Siderbar extends Component {
                   {userFormData[key].name}
                 </div>
                 <div>
-                  <Icon type="delete" className="delete_icon" onClick={() => this.onClick(key)} />
+                  <Icon type="delete" className="delete_icon" onClick={e => this.onDeleteHandler(e, key)} />
                 </div>
               </Menu.Item>
             ))}

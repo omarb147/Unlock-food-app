@@ -5,7 +5,7 @@ import { withRedux } from "../../Redux";
 
 export class LocationSearchForm extends Component {
   render() {
-    const { formCompletionError, selectLocation, clearLocation } = this.props;
+    const { selectLocation, clearLocation } = this.props;
     return (
       <div style={{ paddingBottom: "20px" }}>
         <AlgoliaPlaces
@@ -39,7 +39,6 @@ export class LocationSearchForm extends Component {
             // console.log("Fired when we could not make the request to Algolia Places servers for any reason but reaching your rate limit.")
           }}
         />
-        {formCompletionError && <div style={{ color: "red" }}>Please select a location to focus your location on </div>}
       </div>
     );
   }
