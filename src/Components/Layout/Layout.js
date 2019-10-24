@@ -10,7 +10,6 @@ export class AppLayout extends Component {
       <Layout style={{ height: "100vh" }}>
         <Layout>
           <Siderbar />
-
           <Content>{this.props.children}</Content>
         </Layout>
       </Layout>

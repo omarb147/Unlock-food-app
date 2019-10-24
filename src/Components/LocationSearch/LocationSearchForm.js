@@ -2,12 +2,13 @@ import React, { Component } from "react";
 import AlgoliaPlaces from "algolia-places-react";
 import * as CONFIG from "../../config";
 import { withRedux } from "../../Redux";
+import "./locationSearch.css";
 
 export class LocationSearchForm extends Component {
   render() {
     const { selectLocation, clearLocation } = this.props;
     return (
-      <div style={{ paddingBottom: "20px" }}>
+      <div style={{ paddingBottom: "20px", position: "relative", zIndex: 1000 }}>
         <AlgoliaPlaces
           placeholder="Write an address here"
           options={{
@@ -15,7 +16,8 @@ export class LocationSearchForm extends Component {
             apiKey: CONFIG.ALGOLIA_PLACES_API_KEY,
             countries: ["gb"],
             language: "en",
-            type: "address"
+            type: "address",
+            style: true
             // Other options from https://community.algolia.com/places/documentation.html#options
           }}
           onChange={({ query, rawAnswer, suggestion, suggestionIndex }) => {

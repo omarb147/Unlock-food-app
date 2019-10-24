@@ -19,18 +19,18 @@ class SearchFormBase extends Component {
   // };
 
   handleChange = e => {
-    const { form, uid, userFormData, editFormForUser, updateUserFormCompletionStatus } = this.props;
-    const currUser = userFormData[uid];
-
-    form.validateFields((err, values) => {
-      editFormForUser(uid, values);
-      updateUserFormCompletionStatus(uid);
-    });
+    // const { form, uid, userFormData, editFormForUser, updateUserFormCompletionStatus } = this.props;
+    // const currUser = userFormData[uid];
+    // form.validateFields((err, values) => {
+    //   console.log(values);
+    //   editFormForUser(uid, values);
+    //   updateUserFormCompletionStatus(uid);
+    // });
   };
 
   render() {
-    const { places, uid, userFormData } = this.props;
-    const currUser = userFormData[uid];
+    const { places, selectedUser, userFormData } = this.props;
+    const currUser = userFormData[selectedUser];
     const { getFieldDecorator } = this.props.form;
     // const keywordError = isFieldTouched("keyword") || getFieldError("keyword") ? true : false;
 
@@ -41,13 +41,15 @@ class SearchFormBase extends Component {
             initialValue: currUser.name
           })(<Input placeholder="Name" />)}
         </Form.Item>
-        <Form.Item label="Keyword">{getFieldDecorator("query", {})(<Input placeholder="Enter type of Cusine or meal" />)}</Form.Item>
+        <Form.Item label="Keyword">
+          {getFieldDecorator("query", { initialValue: currUser.query })(<Input placeholder="Enter type of Cusine or meal" />)}
+        </Form.Item>
         <Form.Item label="Distance">
-          {getFieldDecorator("radius", { initialValue: 1 })(<InputNumber min={1} max={10} suffix="Miles" step={0.2} />)}
+          {getFieldDecorator("radius", { initialValue: currUser.radius })(<InputNumber min={1} max={10} suffix="Miles" step={0.2} />)}
           Miles
         </Form.Item>
         <Form.Item label="Max Price Level">
-          {getFieldDecorator("maxPrice", { initialValue: 2.5 })(<Rate character="£" allowClear={true} allowHalf />)}
+          {getFieldDecorator("maxPrice", { initialValue: currUser.maxPrice })(<Rate character="£" allowClear={true} allowHalf />)}
         </Form.Item>
 
         {/* <Form.Item style={{ paddingTop: "25px" }}>
@@ -59,23 +61,23 @@ class SearchFormBase extends Component {
     );
   }
 }
-const mapPropsToFields = props => {};
+const handleChange = props => {
+  const { form, uid, userFormData, editFormForUser, updateUserFormCompletionStatus } = props;
+  const currUser = userFormData[uid];
+
+  form.validateFields((err, values) => {
+    console.log(values);
+    editFormForUser(uid, values);
+    updateUserFormCompletionStatus(uid);
+  });
+};
 
 const SearchForm = compose(
   withRedux,
   // withSearch,
   Form.create({
-    name: "search_form"
-    //   mapPropsToFields(props) {
-    //     const { uid, userFormData } = props;
-    //     const user = userFormData[uid];
-    //     console.log("mapPropsToFields", props);
-    //     console.log(user.name);
-    //     return { name: Form.createFormField({ ...props.username, value: user.name }) };
-    //   },
-    //   onValuesChange(_, values) {
-    //     console.log(values);
-    //   }
+    name: "search_form",
+    onFieldsChange: props => handleChange(props)
   })
 )(SearchFormBase);
 

@@ -8,18 +8,29 @@ export class MainHeader extends Component {
   render() {
     const { openNow, toggleOpenNow } = this.props;
     return (
-      <PageHeader
-        title={
-          <h1>
-            <Icon type="unlock" />
-            Unlock
-          </h1>
-        }
-        subTitle={<h3>Where you can find local places to eat for everyone!</h3>}
-        extra={<SearchFormButton />}
-      >
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline" }}>
-          <div style={{ flex: "5", paddingRight: "10px" }}>
+      <div>
+        <PageHeader
+          title={
+            <h1>
+              <Icon type="unlock" />
+              Unlock
+            </h1>
+          }
+          subTitle={<h3>Where you can find local places to eat for everyone!</h3>}
+          extra={<SearchFormButton />}
+        ></PageHeader>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "baseline",
+            zIndex: 10000,
+            position: "relative",
+            overflow: "visible",
+            padding: 24
+          }}
+        >
+          <div style={{ flex: "5", paddingRight: 10, zIndex: 100000, position: "relative", overflow: "visible" }}>
             <LocationSearchForm />
           </div>
           <div>
@@ -28,7 +39,7 @@ export class MainHeader extends Component {
             </Checkbox>
           </div>
         </div>
-      </PageHeader>
+      </div>
     );
   }
 }

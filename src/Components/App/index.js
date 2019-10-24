@@ -12,9 +12,9 @@ const App = ({ selectedUser }) => {
   return (
     <AppLayout>
       <MainHeader />
-      <div style={{ background: "#fff", padding: 24, minHeight: 280 }}>
+      <div style={{ background: "#fff", padding: 24, minHeight: 280, zIndex: 0, position: "relative", overflow: "visible" }}>
         <SearchErrors />
-        <SearchForm uid={selectedUser} />
+        <SearchForm uid={selectedUser} key={selectedUser} />
         <ResultsView />
       </div>
     </AppLayout>

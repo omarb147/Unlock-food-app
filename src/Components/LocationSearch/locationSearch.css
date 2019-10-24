@@ -1,0 +1,9 @@
+.ap-dropdown-menu {
+  position: absolute !important;
+  z-index: 1000 !important;
+}
+
+.ap-dropdown-menu > *,
+.agolia-places {
+  z-index: 1000 !important;
+}
