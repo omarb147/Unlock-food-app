@@ -14,16 +14,28 @@ export const clearLocation = () => {
 };
 
 //Search actions
+export const selectWinner = winner => {
+  return { type: TYPES.SELECT_WINNER, uid: winner };
+};
+
 export const placesSearchLoading = () => {
   return { type: TYPES.PLACES_SEARCH_LOADING };
 };
 
-export const placesSearchComplete = data => {
-  return { type: TYPES.PLACES_SEARCH_COMPLETE, data };
+export const placesSearchClearData = () => {
+  return { type: TYPES.PLACES_SEARCH_CLEAR_DATA };
+};
+
+export const placesSearchComplete = (data, uid) => {
+  return { type: TYPES.PLACES_SEARCH_COMPLETE, data, uid };
 };
 
 export const placesSearchError = error => {
   return { type: TYPES.PLACES_SEARCH_ERROR };
+};
+
+export const selectPlace = data => {
+  return { type: TYPES.PLACES_SELECTED_PLACE, data };
 };
 
 //User form actions

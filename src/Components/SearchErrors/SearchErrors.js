@@ -14,6 +14,8 @@ export class SearchErrors extends Component {
     const maxPriceError = this.formatFormError(userFormErrorArr, "maxPrice", "Please enter a MaxPrice for the following user(s)");
     const radiusError = this.formatFormError(userFormErrorArr, "radius", "Please enter a search Radius for the following user(s)");
 
+    const errorExists = locationError || nameError || queryError || radiusError || maxPriceError;
+    if (!errorExists) return "";
     return (
       <ul>
         {locationError} {nameError} {queryError} {radiusError} {maxPriceError}
@@ -35,7 +37,7 @@ export class SearchErrors extends Component {
     const errorMessage = this.generateErrorMessage();
     return (
       <div>
-        {showErrorAlert && (
+        {showErrorAlert && errorMessage && (
           <Alert
             message="Unable to Submit Form Please Update the Following fields:"
             description={errorMessage}

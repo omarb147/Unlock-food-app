@@ -4,30 +4,6 @@ import { compose } from "recompose";
 import { withRedux } from "../../Redux";
 
 class SearchFormBase extends Component {
-  // handleSubmit = e => {
-  //   e.preventDefault();
-
-  //   const { form, searchAPI, location, raiseFormCompletionError } = this.props;
-
-  //   form.validateFields((err, values) => {
-  //     if (!err && location.data) {
-  //       searchAPI({ ...values, location });
-  //     } else if (!location.data) {
-  //       raiseFormCompletionError();
-  //     }
-  //   });
-  // };
-
-  handleChange = e => {
-    // const { form, uid, userFormData, editFormForUser, updateUserFormCompletionStatus } = this.props;
-    // const currUser = userFormData[uid];
-    // form.validateFields((err, values) => {
-    //   console.log(values);
-    //   editFormForUser(uid, values);
-    //   updateUserFormCompletionStatus(uid);
-    // });
-  };
-
   render() {
     const { places, selectedUser, userFormData } = this.props;
     const currUser = userFormData[selectedUser];
@@ -35,7 +11,7 @@ class SearchFormBase extends Component {
     // const keywordError = isFieldTouched("keyword") || getFieldError("keyword") ? true : false;
 
     return (
-      <Form layout="vertical" onChange={this.handleChange}>
+      <Form layout="vertical">
         <Form.Item label="Name">
           {getFieldDecorator("name", {
             initialValue: currUser.name
@@ -51,22 +27,14 @@ class SearchFormBase extends Component {
         <Form.Item label="Max Price Level">
           {getFieldDecorator("maxPrice", { initialValue: currUser.maxPrice })(<Rate character="£" allowClear={true} allowHalf />)}
         </Form.Item>
-
-        {/* <Form.Item style={{ paddingTop: "25px" }}>
-          <Button type="primary" htmlType="submit" loading={places.loading}>
-            Submit
-          </Button>
-        </Form.Item> */}
       </Form>
     );
   }
 }
 const handleChange = props => {
   const { form, uid, userFormData, editFormForUser, updateUserFormCompletionStatus } = props;
-  const currUser = userFormData[uid];
 
   form.validateFields((err, values) => {
-    console.log(values);
     editFormForUser(uid, values);
     updateUserFormCompletionStatus(uid);
   });
@@ -74,7 +42,6 @@ const handleChange = props => {
 
 const SearchForm = compose(
   withRedux,
-  // withSearch,
   Form.create({
     name: "search_form",
     onFieldsChange: props => handleChange(props)

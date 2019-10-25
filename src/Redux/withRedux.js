@@ -17,8 +17,10 @@ const withRedux = Component => {
 const mapStateToProps = state => {
   return {
     locationFormCompletionStatus: state.search.formCompletionStatus,
-    location: state.search.location,
+    searchLocation: state.search.location,
     places: state.search.places,
+    winner: state.search.winner,
+    selectedPlace: state.search.selectedPlace,
     // users: state.userData.users,
     userFormData: state.userData.data,
     userFormCompletionStatus: state.userData.formCompletionStatus,
@@ -33,7 +35,8 @@ const mapDispatchToProps = dispatch => {
     selectLocation: locationData => dispatch(ACTIONS.selectLocation(locationData)),
     raiseFormCompletionError: () => dispatch(ACTIONS.raiseFormCompletionError()),
     clearLocation: () => dispatch(ACTIONS.clearLocation()),
-    placesSearchComplete: data => dispatch(ACTIONS.placesSearchComplete(data)),
+    placesSearchComplete: (data, uid) => dispatch(ACTIONS.placesSearchComplete(data, uid)),
+    placesSearchClearData: () => dispatch(ACTIONS.placesSearchClearData()),
     placesSearchLoading: () => dispatch(ACTIONS.placesSearchLoading()),
     placesSearchError: error => dispatch(ACTIONS.placesSearchError(error)),
     addFormUser: uid => dispatch(ACTIONS.addFormUser(uid)),
@@ -43,7 +46,9 @@ const mapDispatchToProps = dispatch => {
     toggleOpenNow: () => dispatch(ACTIONS.toggleOpenNow()),
     removeFormUser: uid => dispatch(ACTIONS.removeFormUser(uid)),
     updateUserFormCompletionStatus: uid => dispatch(ACTIONS.updateUserFormCompletionStatus(uid)),
-    toggleErrorBox: () => dispatch(ACTIONS.toggleErrorBox())
+    toggleErrorBox: () => dispatch(ACTIONS.toggleErrorBox()),
+    selectWinner: users => dispatch(ACTIONS.selectWinner(users)),
+    selectPlace: data => dispatch(ACTIONS.selectPlace(data))
   };
 };
 
