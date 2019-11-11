@@ -1,12 +1,11 @@
 import React from "react";
 import { compose } from "recompose";
-import { placesTextSearchAPI, decideWinningLocation } from "../../services";
+import { placesTextSearchAPI, decideWinningLocation, placesIdSearchAPI } from "../../services";
 import { withRouter } from "react-router-dom";
 import { convertDistanceToUnits } from "../../Helpers/ConvertUnits";
-import * as TYPES from "../../Constants/types";
 import { withRedux } from "../../Redux";
-import async from "async";
 import * as ROUTES from "../../Constants/routes";
+import * as TYPES from "../../Constants/types";
 
 const mainSearchQuery = {
   query: "",
@@ -51,13 +50,20 @@ const withSearch = Component => {
       });
     };
 
-    selectWinningLocation = data => {
-      const { winner, history, selectWinner } = this.props;
-      console.log(winner.uid);
-      decideWinningLocation(data, winner.uid, (location, updatedWinner, error) => {
+    selectWinningLocation = async data => {
+      const { winner, history, selectWinner, placesSearchClearData } = this.props;
+      decideWinningLocation(data, winner.uid, async (location, updatedWinner, error) => {
         if (!error) {
-          selectWinner(updatedWinner, location);
-          history.push(ROUTES.RESULTS);
+          //initiate request for winner data i.e. images.
+
+          placesSearchClearData();
+          await placesIdSearchAPI(this.service, location.place_id, (results, status) => {
+            selectWinner(updatedWinner, results);
+            history.push(ROUTES.RESULTS, { winner: { uid: updatedWinner, location: location.id } });
+          });
+        } else {
+          //Pop up error about being unable to find any results!
+          //ALSO MAKE SURE THE actual errors are being propogated through so different messages can be shown!
         }
       });
     };
@@ -65,9 +71,8 @@ const withSearch = Component => {
     render() {
       const { places, userFormData, winner } = this.props;
       if (Object.keys(places.data).length === Object.keys(userFormData).length) this.selectWinningLocation(places.data);
-      console.log(winner);
 
-      return <Component {...this.props} initiateAPISearch={this.initiatePlacesSearch} />;
+      return <Component {...this.props} initiateAPISearch={this.initiatePlacesSearch} placesIdSearchAPI={this.winningPlaceDetailsSearch} />;
     }
   }
 

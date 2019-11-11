@@ -3,6 +3,13 @@ import { PageHeader, Result, Icon } from "antd";
 import { withRedux } from "../Redux";
 
 export class Results extends Component {
+  componentDidMount() {
+    const { winner } = this.props;
+    console.log(winner);
+    // const { uid, location } = this.props.location.state.winner;
+    // selectWinner(uid, location);
+  }
+
   render() {
     const { winner, userFormData } = this.props;
 

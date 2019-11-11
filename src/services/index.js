@@ -18,6 +18,34 @@ export const placesTextSearchAPI = async (APIClient, request, callback) => {
   });
 };
 
+export const placesIdSearchAPI = async (APIClient, placeId, callback) => {
+  const request = {
+    placeId,
+    fields: [
+      "formatted_address",
+      "opening_hours",
+      "name",
+      "geometry",
+      "photos",
+      "price_level",
+      "rating",
+      "reviews",
+      "user_ratings_total",
+      "website",
+      "url",
+      "vicinity"
+    ]
+  };
+
+  await APIClient.getDetails(request, async (results, status) => {
+    if (status !== "OK") {
+      return callback({}, status);
+    }
+    const mainPhoto = results.photos[0].getUrl({ maxWidth: 500, maxHeight: 500 });
+    return callback({ ...results, mainPhoto }, status);
+  });
+};
+
 export const decideWinningLocation = (results, selectedWinner, callback) => {
   // All locations will have data and status -> if no data is returned the data will be an empty object .
 
