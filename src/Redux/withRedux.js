@@ -47,7 +47,7 @@ const mapDispatchToProps = dispatch => {
     removeFormUser: uid => dispatch(ACTIONS.removeFormUser(uid)),
     updateUserFormCompletionStatus: uid => dispatch(ACTIONS.updateUserFormCompletionStatus(uid)),
     toggleErrorBox: () => dispatch(ACTIONS.toggleErrorBox()),
-    selectWinner: users => dispatch(ACTIONS.selectWinner(users)),
+    selectWinner: (user, location) => dispatch(ACTIONS.selectWinner(user, location)),
     selectPlace: data => dispatch(ACTIONS.selectPlace(data))
   };
 };

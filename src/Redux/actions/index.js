@@ -14,8 +14,8 @@ export const clearLocation = () => {
 };
 
 //Search actions
-export const selectWinner = winner => {
-  return { type: TYPES.SELECT_WINNER, uid: winner };
+export const selectWinner = (winner, location = null) => {
+  return { type: TYPES.SELECT_WINNER, uid: winner, location };
 };
 
 export const placesSearchLoading = () => {

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import withSearch from "../WithSearch";
 import { Button } from "antd";
+import { selectRandomIndexFromList } from "../../Helpers/RandomSelect";
 
 export class SearchFormButton extends Component {
   submitFormHandler = () => {
@@ -30,9 +31,9 @@ export class SearchFormButton extends Component {
 
   selectWinner = users => {
     const userList = Object.keys(users);
-    const winnerIndex = Math.floor(Math.random() * userList.length);
+    const winnerIndex = selectRandomIndexFromList(userList);
     const winner = userList[winnerIndex];
-    this.props.selectWinner(winner);
+    this.props.selectWinner(winner, null);
     return winner;
   };
 

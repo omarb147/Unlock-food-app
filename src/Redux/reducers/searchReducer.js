@@ -3,7 +3,7 @@ import * as TYPES from "../../Constants/types";
 const InitialState = {
   formCompletionStatus: false,
   location: { error: null, data: null },
-  winner: null,
+  winner: { uid: null, location: null },
   places: { error: null, loading: false, data: {} },
   selectedPlace: null
 };
@@ -35,7 +35,7 @@ const searchReducer = (state = InitialState, action) => {
       return { ...state, selectedPlace: action.data };
     }
     case TYPES.SELECT_WINNER: {
-      return { ...state, winner: action.uid };
+      return { ...state, winner: { uid: action.uid, location: action.location } };
     }
   }
   return state;
